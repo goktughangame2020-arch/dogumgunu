@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Doğum Günü Sürprizi</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:radial-gradient(circle at top,#061a2f,#020024);
+  font-family:Arial, sans-serif;
+  color:white;
+  overflow:hidden;
+}
+
+.card{
+  background:rgba(0,0,0,.5);
+  padding:40px;
+  border-radius:25px;
+  text-align:center;
+  width:340px;
+  box-shadow:0 20px 50px rgba(0,0,0,.8);
+  z-index:2;
+}
+
+button{
+  padding:14px 30px;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(135deg,#38bdf8,#0ea5e9);
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.result{
+  margin-top:30px;
+  min-height:260px;
+}
+
+/* 🌸 LİLYUM ANİMASYONU */
+.real-lily{
+  width:190px;
+  opacity:0;
+  transform:scale(0.2) translateY(40px);
+  animation:bloom 1.5s ease forwards;
+  filter:drop-shadow(0 20px 40px rgba(0,0,0,.7));
+}
+
+@keyframes bloom{
+  to{
+    opacity:1;
+    transform:scale(1) translateY(0);
+  }
+}
+
+/* 💙 MAVİ KALP YAĞMURU */
+.heart{
+  position:fixed;
+  top:-20px;
+  font-size:26px;
+  animation:fall linear forwards;
+  z-index:1;
+  filter:drop-shadow(0 0 8px rgba(0,150,255,.8));
+}
+
+@keyframes fall{
+  from{transform:translateY(-40px);}
+  to{transform:translateY(110vh);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>Sürpriz için tıkla 💙</h2>
+  <button id="btn">Tıkla</button>
+  <div id="result" class="result"></div>
+</div>
+
+<script>
+let clickCount = 0;
+const btn = document.getElementById("btn");
+const result = document.getElementById("result");
+
+btn.addEventListener("click", () => {
+  clickCount++;
+
+  // ✅ HER TIKLAMADA MAVİ KALP YAĞMURU
+  startHeartRain();
+
+  if(clickCount === 1){
+    // 1. TIK → LİLYUM
+    result.innerHTML = `<img src="lily.png" class="real-lily">`;
+  }
+  else if(clickCount === 2){
+    // 2. TIK → UZUN MESAJ + MAVİ KALPLER
+    result.innerHTML = `
+      Sevgilim, doğum günün kutlu olsun 💙<br><br>
+      Nice mutlu, benimle geçireceğin yıllara…<br>
+      Sana çok aşığım, iyi ki benimlesin,<br>
+      iyi ki benimsin…<br><br>
+      Sana aşırı derecede çok aşığım 💙💙💙
+    `;
+  }
+});
+
+function startHeartRain(){
+  for(let i=0;i<80;i++){
+    createHeart();
+  }
+}
+
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💙";   // MAVİ KALP
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = 3 + Math.random() * 3 + "s";
+  heart.style.fontSize = 18 + Math.random()*22 + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(() => { heart.remove(); }, 7000);
+}
+</script>
+
+</body>
+</html>
